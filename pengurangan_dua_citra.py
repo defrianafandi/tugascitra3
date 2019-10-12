@@ -7,7 +7,7 @@ def clipping(intensitas):
         return 255
     return intensitas
 
-def penambahan_dua_citra(citra_A, citra_B, citra_hasil):
+def pengurangan_dua_citra(citra_A, citra_B, citra_hasil):
     # pastikan ukuran citra A dan citra B sama :)
     CITRA_A = Image.open(citra_A)
     PIXEL_A = CITRA_A.load()
@@ -31,5 +31,5 @@ def penambahan_dua_citra(citra_A, citra_B, citra_hasil):
     CITRA_HASIL.save(citra_hasil)
 
 
-penambahan_dua_citra('gambar1.jpg', 'gambar2.jpg',
+pengurangan_dua_citra('gambar1.jpg', 'gambar2.jpg',
                       'gambar_hasil_pengurangan.jpg')
