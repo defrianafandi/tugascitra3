@@ -1,5 +1,4 @@
 from PIL import Image
-from math import sqrt
 
 def clipping(intensitas):
     if intensitas < 0:
@@ -8,7 +7,7 @@ def clipping(intensitas):
         return 255
     return intensitas
 
-def perkalian_dua_citra(citra_A, citra_B, citra_hasil):
+def pembagian_dua_citra(citra_A, citra_B, citra_hasil):
     # pastikan ukuran citra A dan citra B sama :)
     CITRA_A = Image.open(citra_A)
     PIXEL_A = CITRA_A.load()
@@ -24,12 +23,22 @@ def perkalian_dua_citra(citra_A, citra_B, citra_hasil):
 
     for x in range(ukuran_horizontal):
         for y in range(ukuran_vertikal):
-            R = clipping(int(sqrt(PIXEL_A[x, y][0] * PIXEL_B[x, y][0])))
-            G = clipping(int(sqrt(PIXEL_A[x, y][1] * PIXEL_B[x, y][1])))
-            B = clipping(int(sqrt(PIXEL_A[x, y][2] * PIXEL_B[x, y][2])))
+            if PIXEL_B[x, y][0] != 0: 
+                R = clipping(int(PIXEL_A[x, y][0] / PIXEL_B[x, y][0]))
+            else :
+                R = 0
+            if PIXEL_B[x, y][1] != 0:
+                G = clipping(int(PIXEL_A[x, y][1] / PIXEL_B[x, y][1]))
+            else:
+                G = 0
+            if PIXEL_B[x, y][2] != 0:
+                B = clipping(int(PIXEL_A[x, y][2] / PIXEL_B[x, y][2]))
+            else:
+                B = 0
             PIXEL_HASIL[x, y] = (R, G, B)
 
     CITRA_HASIL.save(citra_hasil)
 
 
-perkalian_dua_citra('sample1.jpg', 'sample2.jpg','gambar_hasil_perkalian.jpg')
+pembagian_dua_citra('sample1.jpg', 'sample2.jpg',
+                    'gambar_hasil_pembagian.jpg')
